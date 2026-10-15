@@ -154,6 +154,15 @@ class App
         $this->hooksRegistrar->register(new \EventManager\Taxonomies\Municipality($this->wpService));
     }
 
+    public function setupPlaces(): void
+    {
+        $places = new \EventManager\Places\PlaceRepository($this->wpService);
+        $this->hooksRegistrar->register(new \EventManager\Places\PlaceTaxonomy($this->wpService));
+        $this->hooksRegistrar->register(new \EventManager\Places\PlaceFields($this->wpService));
+        $this->hooksRegistrar->register(new \EventManager\Places\PlaceRestController($this->wpService, $places));
+        $this->hooksRegistrar->register(new \EventManager\Places\PlaceSubmissions($this->wpService, $this->acfService, $places));
+    }
+
     public function setupOrganizations(): void
     {
         $taxonomy = $this->appConfig->getOrganizationTaxonomy();

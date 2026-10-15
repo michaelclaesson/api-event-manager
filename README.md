@@ -84,3 +84,28 @@ Distributed under the [MIT License][license-url].
 [issues-url]: https://github.com/helsingborg-stad/api-event-manager/issues
 [license-shield]: https://img.shields.io/github/license/helsingborg-stad/api-event-manager.svg?style=flat-square
 [license-url]: https://github.com/helsingborg-stad/api-event-manager/blob/main/LICENSE
+
+
+## Reusable places
+
+Offline events can choose a shared `event_place` term or submit a new place for review. Each term stores an ACF map in `locationAddress`. The event keeps its own optional `locationDetails`, used for rooms and directions inside the venue. Existing events without a term retain their original location until an editor explicitly links them.
+
+New proposals stay on the pending event. Publishing as an editor with `manage_categories` creates and links the place; publishing repeatedly does not create duplicates. This also supports approval through `wp_update_post`, including Eslöv Event Review's quick approval. A proposal submitted by an account without place-management permission cannot create a publicly reusable place by publishing itself.
+
+Manage places under Events → Places. Changing the name or map updates every linked event's compatibility fields, including past events. The slug remains stable on a name-only edit. A place in use cannot be deleted. The existing `locationName` and `locationAddress` fields remain available for integrations; `locationDetails` must not be appended to the canonical name. Name-based External Content filters need updating when a place is renamed. Typesense and External Content receive edits on their normal subsequent sync; no new external indexing connection is introduced.
+
+- `GET /wp-json/wp/v2/event-places` lists registered terms (WordPress pagination/search applies). Each term includes a Schema.org `place` object with name, address, latitude and longitude.
+- `GET /wp-json/event-manager/v1/places/matches?name=...` returns normalized-name matches with addresses. Matching ignores case and surrounding/repeated whitespace, normalizes Unicode, and preserves Swedish letters. A warning never merges places automatically.
+- Events continue to expose their ACF fields and term IDs. Municipio schema output uses `location` / `Place` with event-specific `description`. The headless schema transformer must map `acf.locationDetails` to `location.description` as well.
+
+The selector's frontend behavior requires the companion Frontend Form support for `frontend_form_linked_location`. Without that enhancement, the ordinary ACF fields and editor controls still work. Register management uses `manage_categories`; organizers may assign places through the event submission flow without permission to edit shared data.
+
+### Local integration check
+
+With the two feature branches active on a `.local` WordPress site, an event form with ID 12 selected for Eslöv Event Review, and an editor account:
+
+```sh
+wp --url=https://event.eslov.local --user=<editor> eval-file wp-content/plugins/api-event-manager/tests/integration/places.php
+```
+
+The check disables email and outbound HTTP for that process, creates isolated fixtures and removes them afterwards. Unit tests run with the existing `composer test` command. Older dependencies emit PHP 8.4 deprecations; use a compatible PHP runtime or suppress dependency deprecations in a local PHPUnit configuration.

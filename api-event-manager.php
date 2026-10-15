@@ -65,6 +65,7 @@ $app->disableGutenbergEditor();
 $app->setupPostTypes();
 $app->setupTaxonomies();
 $app->setupOrganizations();
+$app->setupPlaces();
 $app->setupUserRoles();
 $app->setupUserCapabilities();
 $app->setupAcfFieldContentModifiers();

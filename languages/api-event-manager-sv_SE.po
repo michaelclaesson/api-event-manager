@@ -593,3 +593,89 @@ msgstr "Skapa administratörsanvändare för arrangör %s."
 #: source/php/Organizations/MissingOrganizationAdminNotice.php:223
 msgid "Create organization administrator"
 msgstr "Skapa administratörsanvändare för arrangör"
+
+#: source/php/Places/
+msgid "Place selection"
+msgstr "Välj plats"
+
+#: source/php/Places/
+msgid "Choose existing place"
+msgstr "Välj befintlig plats"
+
+#: source/php/Places/
+msgid "Submit new place"
+msgstr "Skicka in ny plats"
+
+#: source/php/Places/
+msgid "Keep existing event location"
+msgstr "Behåll evenemangets tidigare plats"
+
+#: source/php/Places/
+msgid "Room / additional location details"
+msgstr "Rumsinformation / extra platsdetaljer"
+
+#: source/php/Places/
+msgid "Conference room 1, cafeteria, etc"
+msgstr "Konferensrum 1, kafeterian, etc"
+
+#: source/php/Places/
+msgid "Places"
+msgstr "Platser"
+
+#: source/php/Places/
+msgid "Place address"
+msgstr "Platsens adress"
+
+#: source/php/Places/
+msgid "Address and map position"
+msgstr "Adress och kartposition"
+
+#: source/php/Places/
+msgid "Search places"
+msgstr "Sök bland platser"
+
+#: source/php/Places/
+msgid "A place with this name already exists. Would you like to use it?"
+msgstr "Det finns redan en plats med detta namn. Vill du använda den istället?"
+
+#: source/php/Places/
+msgid "Use this place"
+msgstr "Använd denna plats"
+
+#: source/php/Places/
+msgid "Continue with new place"
+msgstr "Fortsätt med ny plats"
+
+#: source/php/Places/
+msgid "Checking existing places…"
+msgstr "Kontrollerar befintliga platser…"
+
+#: source/php/Places/
+msgid "Could not check existing places. Try again or continue without checking."
+msgstr "Kunde inte kontrollera befintliga platser. Försök igen eller fortsätt utan kontroll."
+
+#: source/php/Places/
+msgid "Try again"
+msgstr "Försök igen"
+
+#: source/php/Places/
+msgid "Continue without checking"
+msgstr "Fortsätt utan kontroll"
+
+#: source/php/Places/
+msgid "Could not load the selected place. Select it again or submit a new place."
+msgstr "Kunde inte hämta den valda platsen. Välj den igen eller skicka in en ny plats."
+
+#: source/php/Places/
+msgid "This place is used by events and cannot be deleted."
+msgstr "Platsen används av evenemang och kan inte tas bort."
+
+#: source/php/Places/
+msgid "Choose an existing place or enter a name and a valid address for a new place."
+msgstr "Välj en befintlig plats eller ange namn och en giltig adress för en ny plats."
+
+msgid "Choose a place"
+msgstr "Välj en plats"
+
+msgid "Could not save the place address."
+msgstr "Det gick inte att spara platsens adress."
