@@ -34,7 +34,7 @@ class PlaceFields implements Hookable
         });
         $this->wpService->addFilter('acf/fields/taxonomy/result/key=' . self::PLACE, function (string $label, \WP_Term $term): string {
             $address = PlaceAddress::from($this->wpService->getTermMeta($term->term_id, 'locationAddress', true));
-            return $address ? $label . ' – ' . $address['address'] : $label;
+            return $address ? $label . ' (' . PlaceAddress::short($address) . ')' : $label;
         }, 10, 2);
     }
 
@@ -67,6 +67,7 @@ class PlaceFields implements Hookable
             'strings'         => [
                 'search'     => $this->wpService->__('Search places', 'api-event-manager'),
                 'duplicate'  => $this->wpService->__('A place with this name already exists. Would you like to use it?', 'api-event-manager'),
+                'duplicatePlural' => $this->wpService->__('Places with this name already exist. Would you like to use one of them?', 'api-event-manager'),
                 'use'        => $this->wpService->__('Use this place', 'api-event-manager'),
                 'continue'   => $this->wpService->__('Continue with new place', 'api-event-manager'),
                 'checking'   => $this->wpService->__('Checking existing places…', 'api-event-manager'),

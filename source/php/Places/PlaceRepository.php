@@ -45,7 +45,9 @@ class PlaceRepository
     public function create(string $name, array $address, int $eventId): int|WP_Error
     {
         // An explicit unique slug permits identical display names at different addresses.
-        $slug   = $this->wpService->sanitizeTitle($name) . '-' . $eventId . '-' . substr(hash('sha256', serialize($address)), 0, 8);
+        $slug = $this->wpService->sanitizeTitle($name) . '-' . $eventId . '-' . substr(hash('sha256', serialize($address)), 0, 8);
+        // Filters must keep the slug unique per name and address, or identical names will collide.
+        $slug   = (string) $this->wpService->applyFilters('EventManager/PlaceSlug', $slug, $name, $address, $eventId);
         $result = $this->wpService->wpInsertTerm($name, PlaceTaxonomy::NAME, ['slug' => $slug]);
         if ($this->wpService->isWpError($result)) {
             return $result;

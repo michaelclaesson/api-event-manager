@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-15T19:04:03+00:00\n"
+"POT-Creation-Date: 2026-11-02T14:27:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: api-event-manager\n"
@@ -499,38 +499,42 @@ msgid "A place with this name already exists. Would you like to use it?"
 msgstr ""
 
 #: source/php/Places/PlaceFields.php:70
-msgid "Use this place"
+msgid "Places with this name already exist. Would you like to use one of them?"
 msgstr ""
 
 #: source/php/Places/PlaceFields.php:71
-msgid "Continue with new place"
+msgid "Use this place"
 msgstr ""
 
 #: source/php/Places/PlaceFields.php:72
-msgid "Checking existing places…"
+msgid "Continue with new place"
 msgstr ""
 
 #: source/php/Places/PlaceFields.php:73
-msgid "Could not check existing places. Try again or continue without checking."
+msgid "Checking existing places…"
 msgstr ""
 
 #: source/php/Places/PlaceFields.php:74
-msgid "Try again"
+msgid "Could not check existing places. Try again or continue without checking."
 msgstr ""
 
 #: source/php/Places/PlaceFields.php:75
-msgid "Continue without checking"
+msgid "Try again"
 msgstr ""
 
 #: source/php/Places/PlaceFields.php:76
+msgid "Continue without checking"
+msgstr ""
+
+#: source/php/Places/PlaceFields.php:77
 msgid "Could not load the selected place. Select it again or submit a new place."
 msgstr ""
 
-#: source/php/Places/PlaceFields.php:93
+#: source/php/Places/PlaceFields.php:94
 msgid "Place address"
 msgstr ""
 
-#: source/php/Places/PlaceFields.php:97
+#: source/php/Places/PlaceFields.php:98
 msgid "Address and map position"
 msgstr ""
 

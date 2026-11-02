@@ -42,7 +42,7 @@ class PlaceRestController implements Hookable
             'id'    => $place['id'],
             'slug'  => $place['slug'],
             'name'  => $place['name'],
-            'place' => PlaceAddress::schema($place['address'], $place['name']),
+            'place' => PlaceAddress::schema($place['address'], $place['name']) + ['shortAddress' => PlaceAddress::short($place['address'])],
         ];
     }
 }

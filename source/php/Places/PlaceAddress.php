@@ -39,6 +39,15 @@ final class PlaceAddress
         return $value;
     }
 
+    /** Compact "Street 1, 123 45 City" for labels; falls back to the full stored address. */
+    public static function short(array $address): string
+    {
+        $street = trim(($address['street_name'] ?? '') . ' ' . ($address['street_number'] ?? ''));
+        $city   = trim(($address['post_code'] ?? '') . ' ' . ($address['address_locality'] ?? $address['city'] ?? ''));
+        $short  = implode(', ', array_filter([$street, $city], fn($part) => $part !== ''));
+        return $street !== '' ? $short : (string) $address['address'];
+    }
+
     public static function schema(array $address, string $name, string $details = ''): array
     {
         $place = [

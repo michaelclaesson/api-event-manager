@@ -643,6 +643,10 @@ msgid "Use this place"
 msgstr "Använd denna plats"
 
 #: source/php/Places/
+msgid "Places with this name already exist. Would you like to use one of them?"
+msgstr "Det finns redan platser med detta namn. Vill du använda någon av dem istället?"
+
+#: source/php/Places/
 msgid "Continue with new place"
 msgstr "Fortsätt med ny plats"
 
