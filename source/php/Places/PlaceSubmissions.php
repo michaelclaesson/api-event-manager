@@ -69,7 +69,7 @@ class PlaceSubmissions implements Hookable
                     $this->wpService->updatePostMeta($postId, 'schemaData', $schema);
                 }
                 $this->wpService->wpSetObjectTerms($postId, [], PlaceTaxonomy::NAME);
-                foreach (['eventPlace' => 0, 'locationName' => '', 'locationAddress' => '', 'locationDetails' => ''] as $key => $value) {
+                foreach (['eventPlace' => '', 'locationName' => '', 'locationAddress' => '', 'locationDetails' => ''] as $key => $value) {
                     $this->acfService->updateField($key, $value, $postId);
                 }
                 return;
@@ -113,7 +113,7 @@ class PlaceSubmissions implements Hookable
             } else {
                 // A proposal must not retain a previous place's taxonomy relationship.
                 $this->wpService->wpSetObjectTerms($postId, [], PlaceTaxonomy::NAME);
-                $this->acfService->updateField(PlaceFields::PLACE, 0, $postId);
+                $this->acfService->updateField(PlaceFields::PLACE, '', $postId);
             }
             $this->refreshStoredSchema($postId);
         } finally {
@@ -149,6 +149,8 @@ class PlaceSubmissions implements Hookable
         if (!is_array($fields) || !array_key_exists(PlaceFields::SOURCE, $fields)) {
             return;
         }
+        // WordPress slashes $_POST, which breaks the JSON ACF posts for the map field.
+        $fields = $this->wpService->wpUnslash($fields);
         $error = $this->validate($fields, (int) ($_POST['post_ID'] ?? 0));
         if ($error) {
             acf_add_validation_error('acf[' . PlaceFields::SOURCE . ']', $error->get_error_message());

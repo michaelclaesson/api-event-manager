@@ -21,6 +21,7 @@ class PlaceFields implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addFilter('acf/load_field/key=' . self::PLACE, [$this, 'configureSelector']);
+        $this->wpService->addFilter('acf/load_value/key=' . self::PLACE, [$this, 'loadPlace'], 20);
         $this->wpService->addFilter('acf/load_value/key=' . self::SOURCE, [$this, 'loadSource'], 10, 3);
         $this->wpService->addAction('acf/init', [$this, 'registerAddressFields']);
         $this->wpService->addFilter('acf/update_value/key=' . self::DETAILS, function (mixed $value): string {
@@ -32,10 +33,22 @@ class PlaceFields implements Hookable
             }
             return $field;
         });
-        $this->wpService->addFilter('acf/fields/taxonomy/result/key=' . self::PLACE, function (string $label, \WP_Term $term): string {
+        $this->wpService->addFilter('acf/fields/taxonomy/result/key=' . self::PLACE, function (mixed $label, mixed $term): mixed {
+            if (!is_string($label) || !$term instanceof \WP_Term) {
+                return $label;
+            }
             $address = PlaceAddress::from($this->wpService->getTermMeta($term->term_id, 'locationAddress', true));
             return $address ? $label . ' (' . PlaceAddress::short($address) . ')' : $label;
         }, 10, 2);
+    }
+
+    /** A stored 0 or a missing term means "no place"; ACF would otherwise look up a non-existent term. */
+    public function loadPlace(mixed $value): mixed
+    {
+        if (is_array($value)) {
+            return array_values(array_filter($value, fn($id) => is_numeric($id) && (int) $id > 0));
+        }
+        return is_numeric($value) && (int) $value > 0 ? $value : '';
     }
 
     public function loadSource(mixed $value, mixed $postId, array $field): mixed

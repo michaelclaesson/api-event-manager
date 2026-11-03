@@ -70,6 +70,16 @@ class PlacesTest extends TestCase
         static::assertSame('new', $fields->loadSource('existing', 123, []));
     }
 
+    public function testMissingPlaceValueIsTreatedAsNoPlace(): void
+    {
+        $fields = new PlaceFields($this->wp([]));
+        static::assertSame('', $fields->loadPlace(0));
+        static::assertSame('', $fields->loadPlace('0'));
+        static::assertSame('', $fields->loadPlace(null));
+        static::assertSame(7, $fields->loadPlace(7));
+        static::assertSame([7], $fields->loadPlace([0, 7]));
+    }
+
     public function testExistingPlaceUsesCanonicalAddressAndPreservesDetails(): void
     {
         $places = $this->createMock(PlaceRepository::class);
